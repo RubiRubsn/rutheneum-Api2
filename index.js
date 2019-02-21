@@ -44,4 +44,4 @@ app.get('/plan/:ID', async (req, res) => {
 });
 
 // API antwortet auf Port 3000
-app.listen(3000);
+app.listen(process.env.PORT);
