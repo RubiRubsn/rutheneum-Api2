@@ -1,0 +1,23 @@
+{
+  "name": "rutheneum_api",
+  "version": "1.0.0",
+  "description": "API für den Vertretungsplan des Rutheneums in Gera",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "API",
+    "Rutheneum",
+    "Gera"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-generator": "^4.16.0",
+    "jsdom": "^13.2.0",
+    "node-fetch": "^2.3.0"
+  }
+}
