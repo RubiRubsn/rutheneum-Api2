@@ -46,8 +46,10 @@ class VPlanParser {
 
 
         entries = entries.splice(1, entries.length - 1); 
+        let grouped = entries;
 
-        const grouped = this.groupBy(entries, groupedBy);
+        if (groupedBy)
+            grouped = this.groupBy(grouped, groupedBy);
 
         return grouped;        
     }

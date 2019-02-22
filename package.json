@@ -20,7 +20,7 @@
     "jsdom": "^13.2.0",
     "node-fetch": "^2.3.0"
   },
-  "engines":{ 
-    "node": "11.10.0" 
+  "engines": {
+    "node": "11.10.0"
   }
 }

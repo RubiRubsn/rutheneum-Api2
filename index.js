@@ -5,6 +5,25 @@ const VPlanParser = require('./VPlanParser');
 // Erstellt eine express-API-App
 const app = express();
 
+
+// Adresse: http://www.expample.com:3000/list/{Anzahl der zurückzugebenden Einträge}/{Gruppierung nach}
+app.get('/list/:num', async (req, res) => {
+    // Zahl der zurückzugebenden Elemente
+    const num = req.params.num;
+
+    // Inhalt fetchen
+    const dataFetched = await fetch(`https://www.gymnasium-rutheneum.de/content/app/overview.php?limit=${num}`);
+
+    // Html herausfiltern
+    const htmlData = await dataFetched.text();
+
+    // Html parsen
+    const list = VPlanParser.parsePlanList(htmlData);
+    
+    // Antwort senden
+    res.send(list);
+});
+
 // Adresse: http://www.expample.com:3000/list/{Anzahl der zurückzugebenden Einträge}/{Gruppierung nach}
 app.get('/list/:num/:groupedBy', async (req, res) => {
     // Zahl der zurückzugebenden Elemente
@@ -12,6 +31,13 @@ app.get('/list/:num/:groupedBy', async (req, res) => {
 
     // Gruppierungseigenschaft
     const groupedBy = req.params.groupedBy;
+
+    // GroupedBy validieren
+    if (!['ID', 'Date', 'LastUpdated', 'Weekday'].includes(groupedBy))
+    {
+        res.sendStatus(404);
+        return;
+    }
 
     // Inhalt fetchen
     const dataFetched = await fetch(`https://www.gymnasium-rutheneum.de/content/app/overview.php?limit=${num}`);
@@ -44,4 +70,7 @@ app.get('/plan/:ID', async (req, res) => {
 });
 
 // API antwortet auf Port 3000
-app.listen(process.env.PORT);
+if (process.env.PORT)
+    app.listen(process.env.PORT);
+else
+    app.listen(3000);
