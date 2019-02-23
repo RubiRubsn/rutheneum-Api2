@@ -79,7 +79,7 @@ class VPlanParser {
         const rows = Array.from(infoElt.querySelectorAll('tr'));
 
         // Leeres Objekt anlegen um den Vertretungsplan hier einzufüllen
-        const table = {};
+        const table = [];
         const stundenRegex = /^(\d)\. Stunde$/;
 
         // Index für die Stunde
@@ -95,12 +95,15 @@ class VPlanParser {
                 stunde = stundenRegex.exec(row.textContent)['1'];
 
                 // Eigenschaft für die nächste Stunde anlegen und ein leeres Array darin hinterlegen
-                table[stunde] = [];
+                table[table.length] = {
+                    StundenNummer: stunde,
+                    Content: []
+                };
                 continue;
             }
 
             // Zeile parsen
-            table[stunde].push({
+            table[table.length - 1].Content.push({
                 Kurs: row.childNodes[0].textContent,
                 Details: row.childNodes[1].textContent
             });
